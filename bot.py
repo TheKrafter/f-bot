@@ -64,7 +64,7 @@ async def fu(interaction: nextcord.Interaction, user: nextcord.Member):
         append = f'\n||*These commands are **not** logged in this server.*||'
     await interaction.send(f'Saying "{message}" to {user.mention}...{append}', ephemeral=True)
     send_message = message.replace('[[mention]]', user.mention)
-    interaction.channel.send(send_message)
+    await interaction.channel.send(send_message)
 
 # Mod config
 @bot.slash_command(description='Whether to log uses of `/fu`, and where to put the log')
