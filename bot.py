@@ -30,7 +30,7 @@ def mod_channel(guild_id):
     with open("config.yml", "r") as ymlfile:
         config = yaml.load(ymlfile, Loader=yaml.FullLoader)
     try:
-        channel = config['moderation'][guild_id]['channel_id']
+        channel = config['moderation'][guild_id]['channel']
     except BaseException as ex:
         logger.warning(f'Tried to check where to send logs, but failed! Error code: {ex}')
     return channel
@@ -45,7 +45,7 @@ async def on_guild_join(guild):
     with open("config.yml", "r") as ymlfile:
         config = yaml.load(ymlfile, Loader=yaml.FullLoader)
     config['moderation'][guild.id]['enabled'] = False
-    config['moderation'][guild.id]['channel_id'] = 0
+    config['moderation'][guild.id]['channel'] = 0
     with open("config.yml", "w") as ymlfile:
         yaml.dump(config, ymlfile)
     logger.info(f'Added yml entry for guild {guild.name} (ID: {guild.id})')
@@ -54,7 +54,7 @@ async def on_guild_join(guild):
 @bot.slash_command(description='Say "F*ck you! to someone (anonymously, except mods may have loggin enabled)')
 async def fu(interaction: nextcord.Interaction, user: nextcord.Member):
     logger.debug(f'Saying f*ck you to {user.name} ({user.id}).')
-    channel = bot.get_channel(interaction.channel_id)
+    channel = bot.get_channel(interaction.channel)
     if mod_enabled(interaction.guild_id):
         log_chan_id = mod_channel(interaction.guild_id)
         log_chan = bot.get_channel(log_chan_id)
@@ -74,7 +74,7 @@ async def mod(interaction: nextcord.Interaction, enabled: bool, channel: nextcor
             with open("config.yml", "r") as ymlfile:
                 config = yaml.load(ymlfile, Loader=yaml.FullLoader)
             config['moderation'][interaction.guild_id]['enabled'] = True
-            config['moderation'][interaction.guild_id]['channel_id'] = channel.id
+            config['moderation'][interaction.guild_id]['channel'] = channel.id
             with open("config.yml", "w") as ymlfile:
                 yaml.dump(config, ymlfile)
             await interaction.send(f'Moderation logs are now **Enabled**, in {channel.mention}!')
@@ -82,7 +82,7 @@ async def mod(interaction: nextcord.Interaction, enabled: bool, channel: nextcor
             with open("config.yml", "r") as ymlfile:
                 config = yaml.load(ymlfile, Loader=yaml.FullLoader)
             config['moderation'][interaction.guild_id]['enabled'] = False
-            config['moderation'][interaction.guild_id]['channel_id'] = 0
+            config['moderation'][interaction.guild_id]['channel'] = 0
             with open("config.yml", "w") as ymlfile:
                 yaml.dump(config, ymlfile)
             await interaction.send(f'Moderation logs are now **Disabled**!')
