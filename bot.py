@@ -41,11 +41,12 @@ async def on_ready():
 # Add yaml entry on guild join
 @bot.event
 async def on_guild_join(guild):
+    # pod['spec']['nodeSelector'] = dict(key='value')
     logger.info(f'Joined a new guild! Name: {guild.name}, ID: {guild.id}')
     with open("config.yml", "r") as ymlfile:
         config = yaml.load(ymlfile, Loader=yaml.FullLoader)
-    config['moderation'][guild.id]['enabled'] = False
-    config['moderation'][guild.id]['channel id'] = 0
+    config['moderation'][guild.id] = dict('enabled'=True)
+    config['moderation'][guild.id] = dict('channel id'=0)
     with open("config.yml", "w") as ymlfile:
         yaml.dump(config, ymlfile)
     logger.info(f'Added yml entry for guild {guild.name} (ID: {guild.id})')
