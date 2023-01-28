@@ -1,6 +1,7 @@
 from logging42 import logger
 import nextcord
 from nextcord.ext import commands
+import yaml
 
 with open("config.yml", "r") as ymlfile:
     cfg = yaml.load(ymlfile, Loader=yaml.FullLoader)
