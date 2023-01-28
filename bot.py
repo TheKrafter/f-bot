@@ -45,8 +45,8 @@ async def on_guild_join(guild):
     logger.info(f'Joined a new guild! Name: {guild.name}, ID: {guild.id}')
     with open("config.yml", "r") as ymlfile:
         config = yaml.load(ymlfile, Loader=yaml.FullLoader)
-    config['moderation'][guild.id] = dict('enabled'=True)
-    config['moderation'][guild.id] = dict('channel id'=0)
+    config['moderation'][guild.id] = dict(enabled=True)
+    config['moderation'][guild.id] = dict(channel id=0)
     with open("config.yml", "w") as ymlfile:
         yaml.dump(config, ymlfile)
     logger.info(f'Added yml entry for guild {guild.name} (ID: {guild.id})')
