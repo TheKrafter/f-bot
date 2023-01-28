@@ -20,7 +20,10 @@ async def on_ready():
 @bot.slash_command(description='Say "F*ck you! to someone')
 async def cogs(interaction: nextcord.Interaction, user: nextcord.Member):
     logger.debug(f'Saying f*ck you to {user.name} ({user.id}).')
-    # incomplete
+    channel = bot.get_channel(interaction.channel_id)
+    await interaction.send(f'Saying "{message}" to {user.mention}...', ephemeral=True)
+    send_message = message.replace('[[mention]]', user.mention)
+    channel.send(send_message)
 
 # Run the Bot
 bot.run(bot_token)
