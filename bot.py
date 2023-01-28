@@ -51,10 +51,10 @@ async def on_guild_join(guild):
     logger.info(f'Added yml entry for guild {guild.name} (ID: {guild.id})')
 
 # Command
-@bot.slash_command(description='Say "F*ck you! to someone (anonymously, except mods may have loggin enabled)')
+@bot.slash_command(description='Say "F*ck you! to someone (anonymously, except mods may have logging enabled)')
 async def fu(interaction: nextcord.Interaction, user: nextcord.Member):
     logger.debug(f'Saying f*ck you to {user.name} ({user.id}).')
-    channel = bot.get_channel(interaction.channel)
+    channel = bot.get_channel(interaction.TextChannel)
     if mod_enabled(interaction.guild_id):
         log_chan_id = mod_channel(interaction.guild_id)
         log_chan = bot.get_channel(log_chan_id)
@@ -86,6 +86,8 @@ async def mod(interaction: nextcord.Interaction, enabled: bool, channel: nextcor
             with open("config.yml", "w") as ymlfile:
                 yaml.dump(config, ymlfile)
             await interaction.send(f'Moderation logs are now **Disabled**!')
+    else:
+        await interaction.send(f'You don\'t have permission!')
 
 # Run the Bot
 bot.run(bot_token)
