@@ -13,7 +13,7 @@ Basic steps for unix-likes:
 git clone https://github.com/TheKrafter/f-bot
 cd f-bot/
 cp example.config.yml config.yml
-# Now get your bot token
 nano config.yml # put ur bot token where it says
+pip install -U nextcord logging42 pyyaml
 python3 bot.py
 ```
