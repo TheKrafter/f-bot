@@ -2,3 +2,11 @@
 bot token: 0000000000000000000000000000000000000
 # The message to send, put [[mention]] where you want the mention for the f*cked user to be
 message: 'Fuck you [[mention]]!'
+# Guild ID, the id of the server the bot should use
+guild: 0000000000000000000
+# Moderation channel
+moderation:
+  # should this bot log it's actions?
+  enabled: True
+  # what channel should it put them in?
+  channel id: 000000000000000
