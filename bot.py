@@ -54,7 +54,7 @@ async def on_guild_join(guild):
 @bot.slash_command(description='Say "F*ck you! to someone (anonymously, except mods may have logging enabled)')
 async def fu(interaction: nextcord.Interaction, user: nextcord.Member):
     logger.debug(f'Saying f*ck you to {user.name} ({user.id}).')
-    channel = bot.get_channel(interaction.TextChannel)
+    channel = interaction.TextChannel
     if mod_enabled(interaction.guild_id):
         log_chan_id = mod_channel(interaction.guild_id)
         log_chan = bot.get_channel(log_chan_id)
