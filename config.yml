@@ -1,0 +1,4 @@
+# Your bot's login token, from discord.com/developers
+bot token: 0000000000000000000000000000000000000
+# The message to send, put [[mention]] where you want the mention for the f*cked user to be
+message: 'Fuck you [[mention]]!'
