@@ -6,7 +6,6 @@ message: 'Fuck you [[mention]]!'
 guild: 0000000000000000000
 # Moderation channel
 moderation:
-  # should this bot log it's actions?
-  enabled: True
-  # what channel should it put them in?
-  channel id: 000000000000000
+  000000000000:
+    enabled: True
+    channel: 0
