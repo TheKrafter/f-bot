@@ -7,6 +7,8 @@ licensed under BSD 3 clause.
 
 pull requests open, we follow the KISS guidelines.
 
+[discord](https://discord.gg/jve2cSnFZD)
+
 ### Usage
 Basic steps for unix-likes:
 ```bash
