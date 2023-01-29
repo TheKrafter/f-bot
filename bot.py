@@ -56,9 +56,13 @@ async def fu(interaction: nextcord.Interaction, user: nextcord.Member):
     logger.debug(f'Saying f*ck you to {user.name} ({user.id}).')
     if mod_enabled(interaction.guild_id):
         log_chan = bot.get_channel(mod_channel(interaction.guild_id))
-        await log_chan.send(f'User {interaction.user.name} (ID: {interaction.user.id}) used the `/fu` command on {user.name} (ID: {user.id})\
-            \nIn channel {interaction.channel.mention} (ID: {interaction.channel_id}).')
-        append = f'\n||*These commands are logged in this server.*||'
+        try:
+            await log_chan.send(f'User {interaction.user.name} (ID: {interaction.user.id}) used the `/fu` command on {user.name} (ID: {user.id})\
+                \nIn channel {interaction.channel.mention} (ID: {interaction.channel_id}).')
+            append = f'\n||*These commands are logged in this server.*||'
+        except nextcord.errors.Forbidden or nextcord.errors.ApplicationInvokeError:
+            append = f'\n||*Logging is enabled here, but failed.*||'
+            await interaction.channel.send(f'**⚠️ Logging Failed!**')        
     else:
         append = f'\n||*These commands are **not** logged in this server.*||'
     await interaction.send(f'Saying "{message}" to {user.mention}...{append}', ephemeral=True)
