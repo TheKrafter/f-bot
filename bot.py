@@ -65,7 +65,7 @@ async def fu(interaction: nextcord.Interaction, user: nextcord.Member):
             await interaction.channel.send(f'**⚠️ Logging Failed!**')        
     else:
         append = f'\n||*These commands are **not** logged in this server.*||'
-    await interaction.send(f'Saying "{message.replace('[[mention]]', {user.mention})}"...{append}', ephemeral=True)
+    await interaction.send(f'Saying "{message.replace("[[mention]]", user.mention)}"...{append}', ephemeral=True)
     if user.id == bot.user.id:
         send_message = message.replace('[[mention]]', interaction.user.mention)
     else:
