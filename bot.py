@@ -51,7 +51,7 @@ async def on_guild_join(guild):
     logger.info(f'Added yml entry for guild {guild.name} (ID: {guild.id})')
 
 # Command
-@bot.slash_command(description='Say "F*ck you! to someone (anonymously, except mods may have logging enabled)')
+@bot.slash_command(description='Say "F*ck you!" to someone (anonymously, except mods may have logging enabled)')
 async def fu(interaction: nextcord.Interaction, user: nextcord.Member):
     logger.debug(f'Saying f*ck you to {user.name} ({user.id}).')
     if mod_enabled(interaction.guild_id):
@@ -65,7 +65,7 @@ async def fu(interaction: nextcord.Interaction, user: nextcord.Member):
             await interaction.channel.send(f'**⚠️ Logging Failed!**')        
     else:
         append = f'\n||*These commands are **not** logged in this server.*||'
-    await interaction.send(f'Saying "{message}" to {user.mention}...{append}', ephemeral=True)
+    await interaction.send(f'Saying "{message.replace('[[mention]]', {user.mention})}"...{append}', ephemeral=True)
     if user.id == bot.user.id:
         send_message = message.replace('[[mention]]', interaction.user.mention)
     else:
