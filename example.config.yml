@@ -6,7 +6,7 @@ message: 'Fuck you [[mention]]!'
 guilds status:
   enabled: true
   # Status to show, [[number]] is the number of guilds
-  status: 'Fuck you in [[number]] servers!'
+  status: 'people say "Fuck you!" in [[number]] servers!'
 # Moderation channel
 moderation:
   000000000000:
