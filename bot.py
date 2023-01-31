@@ -38,6 +38,10 @@ def mod_channel(guild_id):
 @bot.event
 async def on_ready():
     logger.info(f'Logged in as {bot.user}')
+    if cfg['guilds status']['enabled']:
+        await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.custom, name = cfg['guilds status']['status'].replace('[[number]]', len(bot.guilds))))
+        logger.info(f'Status update: I\'m in {len(bot.guilds)} servers!')
+
 # Add yaml entry on guild join
 @bot.event
 async def on_guild_join(guild):
@@ -49,6 +53,9 @@ async def on_guild_join(guild):
     with open("config.yml", "w") as ymlfile:
         yaml.dump(config, ymlfile)
     logger.info(f'Added yml entry for guild {guild.name} (ID: {guild.id})')
+    if cfg['guilds status']['enabled']:
+        await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.custom, name = cfg['guilds status']['status'].replace('[[number]]', len(bot.guilds))))
+        logger.info(f'Status update: I\'m in {len(bot.guilds)} servers!')
 
 # Command
 @bot.slash_command(description='Say "F*ck you!" to someone (anonymously, except mods may have logging enabled)')

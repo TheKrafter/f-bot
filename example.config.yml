@@ -2,6 +2,11 @@
 bot token: 0000000000000000000000000000000000000
 # The message to send, put [[mention]] where you want the mention for the f*cked user to be
 message: 'Fuck you [[mention]]!'
+# Whether to show how many servers (guilds) the bot is in
+guilds status:
+  enabled: true
+  # Status to show, [[number]] is the number of guilds
+  status: 'Fuck you in [[number]] servers!'
 # Moderation channel
 moderation:
   000000000000:
