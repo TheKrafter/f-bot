@@ -1,5 +1,5 @@
 # f-bot
-says f-you to someone
+anonymously swear at people, with optional logging for moderation purposes.
 
 
 licensed under BSD 3 clause.
