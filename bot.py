@@ -35,7 +35,7 @@ def set_pref(guild, member, set: bool):
 	else:
 		pref[str(guild.id)] = {}
 		pref[str(guild.id)][str(member.id)] = set
-	with open("preferences.yml", "r") as file:
+	with open("preferences.yml", "w") as file:
 		yaml.full_dump(pref, file)
 	return
 
