@@ -42,12 +42,15 @@ def set_pref(guild, member, set: bool):
 	return
 
 def check_pref(guild, member):
-	with open("preferences.yml", "r") as file:
-		pref = yaml.full_load(file)
 	try:
-		ans: bool = pref[str(interaction.guild.id)][str(interaction.user.id)]
-	except:
-		ans = True
+		with open("preferences.yml", "r") as file:
+			pref = yaml.full_load(file)
+	except FileNotFoundError:
+		return True
+	try:
+		ans = pref[str(interaction.guild.id)][str(interaction.user.id)]
+	except KeyError:
+		return True
 	return ans
 
 ## These functions load values live from yaml
@@ -92,7 +95,7 @@ async def fu(interaction: nextcord.Interaction, user: nextcord.Member):
 		return
 	if not check_pref(interaction.guild, interaction.user):
 		await interaction.send("You cannot say that to this user!", ephemeral=True)
-		logger.debug('NOT saying f*ck you to someone due to their preferences')
+		logger.success('NOT saying f*ck you to someone due to their preferences')
 		return
 	logger.debug(f'Saying f*ck you to {user.name} ({user.id}).')
 	if mod_enabled(interaction.guild_id):
