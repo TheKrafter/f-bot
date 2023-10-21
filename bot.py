@@ -48,7 +48,7 @@ def check_pref(guild, member):
 	except FileNotFoundError:
 		return True
 	try:
-		ans = pref[str(interaction.guild.id)][str(interaction.user.id)]
+		ans = pref[str(guild.id)][str(user.id)]
 	except KeyError:
 		return True
 	return ans
