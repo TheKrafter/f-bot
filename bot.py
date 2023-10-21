@@ -4,7 +4,7 @@ from nextcord.ext import commands
 import yaml
 
 with open("config.yml", "r") as ymlfile:
-	cfg = yaml.load(ymlfile, Loader=yaml.FullLoader)
+	cfg = yaml.full_load(ymlfile)
 
 bot = commands.Bot()
 
@@ -16,7 +16,7 @@ message = cfg['message']
 def mod_enabled(guild_id):
 	enabled = False
 	with open("config.yml", "r") as ymlfile:
-		config = yaml.load(ymlfile, Loader=yaml.FullLoader)
+		config = yaml.full_load(ymlfile)
 	try:
 		enabled = config['moderation'][guild_id]['enabled']
 	except BaseException as ex:
@@ -36,7 +36,7 @@ def set_pref(guild, member, set: bool):
 		pref[str(guild.id)] = {}
 		pref[str(guild.id)][str(member.id)] = set
 	with open("preferences.yml", "w") as file:
-		yaml.full_dump(pref, file)
+		yaml.dump(pref, file)
 	return
 
 def check_pref(guild, member):
@@ -53,7 +53,7 @@ def check_pref(guild, member):
 def mod_channel(guild_id):
 	channel = 0
 	with open("config.yml", "r") as ymlfile:
-		config = yaml.load(ymlfile, Loader=yaml.FullLoader)
+		config = yaml.full_load(ymlfile)
 	try:
 		channel = config['moderation'][guild_id]['channel']
 	except BaseException as ex:
@@ -72,7 +72,7 @@ async def on_ready():
 async def on_guild_join(guild):
 	logger.info(f'Joined a new guild! Name: {guild.name}, ID: {guild.id}')
 	with open("config.yml", "r") as ymlfile:
-		config = yaml.load(ymlfile, Loader=yaml.FullLoader)
+		config = yaml.full_load(ymlfile)
 	config['moderation'][guild.id] = dict(enabled=False)
 	config['moderation'][guild.id] = dict(channel=0)
 	with open("config.yml", "w") as ymlfile:
@@ -120,7 +120,7 @@ async def mod(interaction: nextcord.Interaction, enabled: bool, channel: nextcor
 	if interaction.user.guild_permissions.administrator:
 		if enabled:
 			with open("config.yml", "r") as ymlfile:
-				config = yaml.load(ymlfile, Loader=yaml.FullLoader)
+				config = yaml.full_load(ymlfile)
 			config['moderation'][interaction.guild_id]['enabled'] = True
 			config['moderation'][interaction.guild_id]['channel'] = channel.id
 			with open("config.yml", "w") as ymlfile:
@@ -128,7 +128,7 @@ async def mod(interaction: nextcord.Interaction, enabled: bool, channel: nextcor
 			await interaction.send(f'Moderation logs are now **Enabled**, in {channel.mention}!')
 		else:
 			with open("config.yml", "r") as ymlfile:
-				config = yaml.load(ymlfile, Loader=yaml.FullLoader)
+				config = yaml.full_load(ymlfile)
 			config['moderation'][interaction.guild_id]['enabled'] = False
 			config['moderation'][interaction.guild_id]['channel'] = 0
 			with open("config.yml", "w") as ymlfile:
