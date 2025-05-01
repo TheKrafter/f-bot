@@ -1,4 +1,6 @@
 # f-bot
+## This project has moved to [Codeberg](https://codeberg.org/krafter/f-bot).
+
 anonymously swear at people, with optional logging for moderation purposes.
 
 
